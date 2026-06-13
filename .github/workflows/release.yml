@@ -32,11 +32,12 @@ jobs:
           ./gradlew buildPlugin -PPluginVersion=$VERSION --no-daemon
 
       - name: Create GitHub Release
+        # Only the Rider plugin .zip is attached. The .nupkg is the ReSharper package, which is
+        # unsupported (see docs/resharper-variant-findings.md), so it is not distributed.
         uses: softprops/action-gh-release@v2
         with:
           files: |
             output/*.zip
-            output/*.nupkg
 
       # Publishes the Rider plugin .zip to the JetBrains Marketplace. Rider only for now — the
       # ReSharper .nupkg (publishDotNet) is deferred until that variant is functional (see TODO.md).
