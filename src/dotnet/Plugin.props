@@ -12,7 +12,7 @@
     <Copyright>Copyright $([System.DateTime]::Now.Year) ResXFileCodeGeneratorEx contributors</Copyright>
     <PackageTags>resharper rider plugin resx resource codegen</PackageTags>
 
-    <PackageProjectUrl>https://github.com/alejack9/ResXFileCodeGeneratorEx</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Enn3Developer/ResXFileCodeGeneratorEx</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl></PackageIconUrl>
   </PropertyGroup>
