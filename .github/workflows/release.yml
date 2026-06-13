@@ -11,15 +11,15 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
           cache: gradle
 
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 8.0.x
 
@@ -31,11 +31,21 @@ jobs:
           chmod +x ./gradlew
           ./gradlew buildPlugin -PPluginVersion=$VERSION --no-daemon
 
+      - name: Read changelog entry
+        id: changelog
+        uses: mindsers/changelog-reader-action@v2.4.0
+        with:
+          path: ./CHANGELOG.md
+          version: ${{ env.VERSION }}
+          validation_level: warn
+
       - name: Create GitHub Release
         # Only the Rider plugin .zip is attached. The .nupkg is the ReSharper package, which is
         # unsupported (see docs/resharper-variant-findings.md), so it is not distributed.
-        uses: softprops/action-gh-release@v2
+        # The release body mirrors this version's CHANGELOG.md section.
+        uses: softprops/action-gh-release@v3
         with:
+          body: ${{ steps.changelog.outputs.changes }}
           files: |
             output/*.zip
 

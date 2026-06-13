@@ -119,8 +119,11 @@ tasks.buildPlugin {
         }
 
         // TODO: See also org.jetbrains.changelog: https://github.com/JetBrains/gradle-changelog-plugin
+        // Anchor bullets to line start (^- ) so the hyphen in the "## [x.y.z] - date" heading
+        // (Keep a Changelog format, required by the changelog-reader action in release.yml) is
+        // not captured as a spurious leading bullet.
         val changelogText = file("${rootDir}/CHANGELOG.md").readText()
-        val changelogMatches = Regex("(?s)(-.+?)(?=##|$)").findAll(changelogText)
+        val changelogMatches = Regex("(?ms)(^- .+?)(?=\\n## |\\Z)").findAll(changelogText)
         val changeNotes = changelogMatches.map {
             it.groups[1]!!.value.replace("(?s)- ".toRegex(), "\u2022 ").replace("`", "").replace(",", "%2C").replace(";", "%3B")
         }.take(1).joinToString()
@@ -164,8 +167,10 @@ tasks.buildSearchableOptions {
 
 tasks.patchPluginXml {
     // TODO: See also org.jetbrains.changelog: https://github.com/JetBrains/gradle-changelog-plugin
+    // Anchor bullets to line start (^- ) so the hyphen in the "## [x.y.z] - date" heading is
+    // not captured as a spurious leading bullet (see buildPlugin above).
     val changelogText = file("${rootDir}/CHANGELOG.md").readText()
-    val changelogMatches = Regex("(?s)(-.+?)(?=##|\$)").findAll(changelogText)
+    val changelogMatches = Regex("(?ms)(^- .+?)(?=\\n## |\\Z)").findAll(changelogText)
 
     changeNotes.set(changelogMatches.map {
         it.groups[1]!!.value.replace("(?s)\r?\n".toRegex(), "<br />\n")
