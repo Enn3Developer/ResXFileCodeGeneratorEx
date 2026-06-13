@@ -1,0 +1,8 @@
+<Project>
+  <!--
+    Intentionally does NOT import the parent src/dotnet/Directory.Build.props: that file is
+    net472/ReSharper-SDK specific (Windows-style output paths, JetResourceGenerator, System.Xaml)
+    and would break this cross-platform net8.0 NUnit project. Keeping an empty props here stops
+    MSBuild's upward search so the test project stays self-contained.
+  -->
+</Project>

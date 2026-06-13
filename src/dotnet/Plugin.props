@@ -1,0 +1,20 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <!-- See https://www.nuget.org/packages/JetBrains.ReSharper.SDK -->
+    <!-- Keep in sync with ProductVersion in gradle.properties -->
+    <SdkVersion>2025.3.0.1</SdkVersion>
+
+    <Title>ResXFileCodeGeneratorEx</Title>
+    <Description>Rider/ReSharper port of ResXFileCodeGeneratorEx: generates strongly-typed Designer.cs files from .resx resources with doc comments and Format helpers.</Description>
+
+    <Authors>ResXFileCodeGeneratorEx contributors</Authors>
+    <Copyright>Copyright $([System.DateTime]::Now.Year) ResXFileCodeGeneratorEx contributors</Copyright>
+    <PackageTags>resharper rider plugin resx resource codegen</PackageTags>
+
+    <PackageProjectUrl>https://github.com/alejack9/ResXFileCodeGeneratorEx</PackageProjectUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageIconUrl></PackageIconUrl>
+  </PropertyGroup>
+
+</Project>

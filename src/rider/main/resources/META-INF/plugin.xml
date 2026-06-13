@@ -1,0 +1,45 @@
+<idea-plugin require-restart="true">
+  <id>com.jetbrains.rider.plugins.resxfilecodegeneratorex</id>
+  <name>ResXFileCodeGeneratorEx</name>
+  <version>_PLACEHOLDER_</version>
+  <vendor url="https://github.com/alejack9/ResXFileCodeGeneratorEx">ResXFileCodeGeneratorEx contributors</vendor>
+  <idea-version since-build="_PLACEHOLDER_" until-build="_PLACEHOLDER_" />
+  <depends>com.intellij.modules.rider</depends>
+
+  <description>
+<![CDATA[
+<p>
+  A Rider/ReSharper port of the classic <b>ResXFileCodeGeneratorEx</b> Visual Studio custom tool.
+</p>
+<p>
+  When set as the <em>Custom Tool</em> for a <code>.resx</code> file, it generates a
+  <code>.Designer.cs</code> companion file containing:
+</p>
+<ul>
+  <li>Strongly-typed static properties for every resource entry</li>
+  <li>XML doc-comments describing each resource</li>
+  <li><code>XxxFormat(object arg0, …)</code> convenience methods for strings that contain
+      <code>{0}</code>, <code>{1}</code>, … placeholders</li>
+  <li>A nested <code>ResourceNames</code> class exposing every resource key as a constant</li>
+  <li>Thread-safe <code>ResourceManager</code> and overridable <code>Culture</code> property</li>
+</ul>
+<p>
+  The generated <code>.Designer.cs</code> is kept byte-compatible with the original Visual Studio
+  <b>ResXFileCodeGeneratorEx</b> custom tool, so Rider and Visual Studio users on the same team can
+  regenerate the same file without spurious diffs.
+</p>
+<p>Two tool names are supported:</p>
+<ul>
+  <li><b>ResXFileCodeGeneratorEx</b> — generates a <code>public</code> class</li>
+  <li><b>ResXFileCodeGeneratorExInternal</b> — generates an <code>internal</code> class</li>
+</ul>
+<p>
+  Set the custom tool in Rider via <em>Properties → Custom Tool</em> on any
+  <code>.resx</code> file, or by adding
+  <code>&lt;Generator&gt;ResXFileCodeGeneratorEx&lt;/Generator&gt;</code> to the
+  <code>&lt;EmbeddedResource&gt;</code> item in your <code>.csproj</code>.
+</p>
+]]>
+  </description>
+
+</idea-plugin>

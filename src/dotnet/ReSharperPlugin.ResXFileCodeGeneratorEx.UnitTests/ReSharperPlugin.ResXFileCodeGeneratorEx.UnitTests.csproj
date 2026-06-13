@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Plain NUnit tests for the platform-agnostic ResXCodeGenerator. These intentionally
+    do NOT use the heavy ReSharper test framework (ExtensionTestEnvironmentAssembly): the
+    generator is pure BCL, so we compile its source directly into the test assembly and
+    target a modern, cross-platform TFM. This keeps the tests fast and runnable on any OS,
+    while the .Rider/.csproj builds still validate net472 compilation of the same source.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NUnit" Version="4.2.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Compile the generator source directly (gives access to its internal types). -->
+    <Compile Include="..\ReSharperPlugin.ResXFileCodeGeneratorEx\ResXCodeGenerator.cs" Link="ResXCodeGenerator.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Golden reference output captured from the original VS tool (via System.CodeDom).
+         Copied next to the test assembly and read from disk at runtime. -->
+    <Content Include="golden/*.cs.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
