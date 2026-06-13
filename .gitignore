@@ -22,6 +22,11 @@ output
 _ReSharper*
 _dotTrace*
 
+# Nix
+/result
+/result-*
+/.direnv/
+
 # AI
 TODO.md
 /.claude
