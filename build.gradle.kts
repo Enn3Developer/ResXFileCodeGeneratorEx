@@ -197,10 +197,18 @@ tasks.prepareSandbox {
 }
 
 tasks.publishPlugin {
-    dependsOn(testDotNet)
+    // NOTE: no dependsOn(testDotNet) — testDotNet runs `dotnet test` over the whole solution,
+    // including the net472 ReSharper-SDK projects, which cannot execute on a Linux CI runner.
+    // The cross-platform generator tests run separately in ci.yml (UnitTests, net8.0).
     dependsOn(tasks.buildPlugin)
     token.set("${PublishToken}")
+}
 
+// ReSharper (.nupkg) publish to plugins.jetbrains.com. Deferred: the ReSharper variant is not yet
+// functional (see TODO.md), so this task is intentionally NOT wired into release.yml. Once the
+// ReSharper custom-tool lands, invoke it from the release workflow alongside publishPlugin.
+val publishDotNet by tasks.registering {
+    dependsOn(tasks.buildPlugin)
     doLast {
         exec {
             executable("dotnet")

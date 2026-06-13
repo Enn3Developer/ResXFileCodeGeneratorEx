@@ -13,7 +13,7 @@
     <PackageTags>resharper rider plugin resx resource codegen</PackageTags>
 
     <PackageProjectUrl>https://github.com/alejack9/ResXFileCodeGeneratorEx</PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl></PackageIconUrl>
   </PropertyGroup>
 

@@ -37,3 +37,12 @@ jobs:
           files: |
             output/*.zip
             output/*.nupkg
+
+      # Publishes the Rider plugin .zip to the JetBrains Marketplace. Rider only for now — the
+      # ReSharper .nupkg (publishDotNet) is deferred until that variant is functional (see TODO.md).
+      # The very first version of a plugin must be uploaded manually via the Marketplace web UI to
+      # create the listing; this step covers subsequent versions.
+      - name: Publish Rider plugin to JetBrains Marketplace
+        env:
+          TOKEN: ${{ secrets.JETBRAINS_MARKETPLACE_TOKEN }}
+        run: ./gradlew publishPlugin -PPluginVersion=$VERSION -PPublishToken=$TOKEN --no-daemon
