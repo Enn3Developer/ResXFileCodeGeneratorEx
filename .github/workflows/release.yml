@@ -23,6 +23,15 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
+      # Gate the release on the cross-platform generator tests (same project as ci.yml). ci.yml
+      # only runs on PRs and pushes to main, not on v* tags, so without this a tag could publish
+      # untested. A failure here aborts the job before anything is built, released, or published.
+      - name: Run unit tests
+        run: >
+          dotnet test
+          src/dotnet/ReSharperPlugin.ResXFileCodeGeneratorEx.UnitTests/ReSharperPlugin.ResXFileCodeGeneratorEx.UnitTests.csproj
+          -c Release
+
       - name: Derive version from tag
         run: echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
 
