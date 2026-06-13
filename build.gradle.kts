@@ -155,6 +155,13 @@ tasks.runIde {
     maxHeapSize = "1500m"
 }
 
+// buildSearchableOptions boots a headless IDE to index settings UI; this plugin has no
+// settings pages, and the task is flaky in CI (it times out waiting for Rider configurables).
+// Disable it so `buildPlugin` is fast and reliable on CI runners.
+tasks.buildSearchableOptions {
+    enabled = false
+}
+
 tasks.patchPluginXml {
     // TODO: See also org.jetbrains.changelog: https://github.com/JetBrains/gradle-changelog-plugin
     val changelogText = file("${rootDir}/CHANGELOG.md").readText()
