@@ -1,7 +1,7 @@
 # ResXFileCodeGeneratorEx for Rider and ReSharper
 
-[![Rider](https://img.shields.io/jetbrains/plugin/v/RIDER_PLUGIN_ID.svg?label=Rider&colorB=0A7BBB&style=for-the-badge&logo=rider)](https://plugins.jetbrains.com/plugin/RIDER_PLUGIN_ID)
-[![ReSharper](https://img.shields.io/jetbrains/plugin/v/RESHARPER_PLUGIN_ID.svg?label=ReSharper&colorB=0A7BBB&style=for-the-badge&logo=resharper)](https://plugins.jetbrains.com/plugin/RESHARPER_PLUGIN_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/32264.svg?label=Rider&colorB=0A7BBB&style=for-the-badge&logo=rider)](https://plugins.jetbrains.com/plugin/32264-resxfilecodegeneratorex)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/32264.svg?colorB=0A7BBB&style=for-the-badge)](https://plugins.jetbrains.com/plugin/32264-resxfilecodegeneratorex)
 
 A Rider/ReSharper port of the classic **ResXFileCodeGeneratorEx** Visual Studio custom tool.
 When set as the *Custom Tool* for a `.resx` file, it generates a `.Designer.cs` companion class
