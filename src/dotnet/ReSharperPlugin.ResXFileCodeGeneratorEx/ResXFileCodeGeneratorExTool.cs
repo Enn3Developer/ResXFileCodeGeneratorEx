@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using JetBrains.Application;
 using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.Properties.Managed;
@@ -38,8 +37,7 @@ namespace ReSharperPlugin.ResXFileCodeGeneratorEx
 
         public ISingleFileCustomToolExecutionResult Execute(IProjectFile projectFile)
         {
-            var errors  = new List<string>();
-            var outputs = new List<VirtualFileSystemPath>();
+            var errors = new List<string>();
 
             try
             {
@@ -58,15 +56,27 @@ namespace ReSharperPlugin.ResXFileCodeGeneratorEx
                     resxContent, namespaceName, className, IsInternal);
 
                 var outputPath = resxPath.Directory.Combine(className + ".Designer.cs");
-                File.WriteAllText(outputPath.FullPath, code, Encoding.UTF8);
-                outputs.Add(outputPath);
+
+                // Write the Designer through Rider's VFS inside an EnsureWritable modification
+                // cookie (not raw System.IO.File) so the write participates in the VFS/model.
+                SingleFileCustomToolExtensions.WriteToDisk(
+                    projectFile.GetSolution(), new List<VirtualFileSystemPath>(), errors,
+                    (outputPath, code));
             }
             catch (Exception ex)
             {
                 errors.Add(ex.Message);
             }
 
-            return new SingleFileCustomToolExecutionResult(outputs, errors);
+            // Deliberately report NO affected files. If the Designer path were returned, the
+            // custom-tool manager's PostProcess invalidates the SymbolCache under a
+            // WriteLockCookie. When Rider invokes this tool synchronously inside the
+            // Rename-Resource refactoring (which holds a non-interruptible read lock for its
+            // conflict search), that write lock can never be acquired and the EDT freezes ~20s
+            // in acquireWriteIntentPermit. The VFS write above already propagates the change;
+            // the daemon reparses the regenerated Designer through the normal file-change path.
+            return new SingleFileCustomToolExecutionResult(
+                new List<VirtualFileSystemPath>(), errors);
         }
 
         // ------------------------------------------------------------------
